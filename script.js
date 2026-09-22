@@ -182,12 +182,12 @@ if (!reduceMotion) {
       if (p.y < 0 || p.y > height) p.vy *= -1;
       const dxp = pointer.x - p.x, dyp = pointer.y - p.y, pd = Math.hypot(dxp, dyp);
       if (pd < 140) { p.x -= dxp * .0012; p.y -= dyp * .0012; }
-      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = "rgba(200,255,54,.42)"; ctx.fill();
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = "rgba(103,232,249,.42)"; ctx.fill();
       for (let j = i + 1; j < particles.length; j++) {
         const q = particles[j], d = Math.hypot(p.x - q.x, p.y - q.y);
         if (d < 125) {
           ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
-          ctx.strokeStyle = `rgba(140,184,255,${(1 - d / 125) * .11})`; ctx.stroke();
+          ctx.strokeStyle = `rgba(167,139,250,${(1 - d / 125) * .12})`; ctx.stroke();
         }
       }
     });
