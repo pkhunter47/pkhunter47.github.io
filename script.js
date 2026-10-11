@@ -158,42 +158,125 @@ if (!reduceMotion && matchMedia("(pointer: fine)").matches) {
   });
 }
 
-// Generative signal field: responds gently to pointer and scroll.
+// Generative aurora field: soft color blooms, drifting light ribbons, and responsive constellations.
 if (!reduceMotion) {
   const canvas = document.querySelector("#signal-canvas");
   const ctx = canvas.getContext("2d");
-  let width, height, dpr, particles = [], pointer = { x: -9999, y: -9999 };
+  let width, height, dpr, particles = [];
+  const pointer = { x: -9999, y: -9999 };
+
   const resize = () => {
-    dpr = Math.min(devicePixelRatio || 1, 1.6);
-    width = innerWidth; height = innerHeight;
-    canvas.width = width * dpr; canvas.height = height * dpr;
+    dpr = Math.min(devicePixelRatio || 1, 1.5);
+    width = innerWidth;
+    height = innerHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const count = Math.min(72, Math.floor(width / 20));
-    particles = Array.from({ length: count }, () => ({ x: Math.random() * width, y: Math.random() * height, vx: (Math.random() - .5) * .18, vy: (Math.random() - .5) * .18, r: Math.random() * 1.2 + .3 }));
+
+    const count = Math.min(88, Math.max(42, Math.floor(width / 17)));
+    particles = Array.from({ length: count }, (_, i) => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - .5) * .24,
+      vy: (Math.random() - .5) * .24,
+      r: i % 9 === 0 ? Math.random() * 1.5 + 2.1 : Math.random() * 1.2 + .8,
+      phase: Math.random() * Math.PI * 2,
+      hue: Math.random() > .48 ? 188 : 258
+    }));
   };
-  addEventListener("resize", resize);
-  addEventListener("pointermove", event => { pointer.x = event.clientX; pointer.y = event.clientY; }, { passive: true });
-  addEventListener("pointerleave", () => { pointer.x = -9999; pointer.y = -9999; });
-  const draw = () => {
+
+  addEventListener("resize", resize, { passive: true });
+  addEventListener("pointermove", event => {
+    pointer.x = event.clientX;
+    pointer.y = event.clientY;
+  }, { passive: true });
+  addEventListener("pointerleave", () => {
+    pointer.x = -9999;
+    pointer.y = -9999;
+  });
+
+  const draw = now => {
+    const time = now * .00012;
     ctx.clearRect(0, 0, width, height);
+
+    // Slow, translucent aurora blooms add depth without covering the page.
+    const glow = (x, y, radius, color) => {
+      const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+      gradient.addColorStop(0, color);
+      gradient.addColorStop(1, "rgba(9,11,16,0)");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(x - radius, y - radius, radius * 2, radius * 2);
+    };
+    const span = Math.max(width, height);
+    glow(width * (.22 + Math.sin(time) * .035), height * (.28 + Math.cos(time * .8) * .04), span * .42, "rgba(38,205,224,.17)");
+    glow(width * (.78 + Math.cos(time * .72) * .04), height * (.62 + Math.sin(time * .9) * .05), span * .40, "rgba(139,102,255,.15)");
+    glow(width * (.52 + Math.sin(time * .5) * .06), height * (.08 + Math.cos(time) * .025), span * .31, "rgba(79,144,255,.10)");
+
+    // Two fine flowing ribbons make the motion visible even between particles.
+    ctx.save();
+    ctx.lineCap = "round";
+    for (let i = 0; i < 2; i++) {
+      const baseY = height * (.32 + i * .36);
+      const drift = Math.sin(time * (1.15 + i * .18) + i * 2.2) * height * .055;
+      const gradient = ctx.createLinearGradient(0, baseY, width, baseY);
+      gradient.addColorStop(0, "rgba(103,232,249,0)");
+      gradient.addColorStop(.28, "rgba(103,232,249,.17)");
+      gradient.addColorStop(.62, "rgba(167,139,250,.15)");
+      gradient.addColorStop(1, "rgba(103,232,249,0)");
+      ctx.beginPath();
+      ctx.moveTo(-30, baseY + drift);
+      ctx.bezierCurveTo(width * .25, baseY - height * .16 + drift, width * .68, baseY + height * .16 - drift, width + 30, baseY - drift);
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 1.5;
+      ctx.shadowBlur = 18;
+      ctx.shadowColor = i ? "rgba(167,139,250,.3)" : "rgba(103,232,249,.3)";
+      ctx.stroke();
+    }
+    ctx.restore();
+    ctx.shadowBlur = 0;
+
     particles.forEach((p, i) => {
-      p.x += p.vx; p.y += p.vy;
-      if (p.x < 0 || p.x > width) p.vx *= -1;
-      if (p.y < 0 || p.y > height) p.vy *= -1;
-      const dxp = pointer.x - p.x, dyp = pointer.y - p.y, pd = Math.hypot(dxp, dyp);
-      if (pd < 140) { p.x -= dxp * .0012; p.y -= dyp * .0012; }
-      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = "rgba(103,232,249,.42)"; ctx.fill();
+      p.x += p.vx + Math.sin(time + p.phase) * .10;
+      p.y += p.vy + Math.cos(time * .9 + p.phase) * .10;
+      if (p.x < -4 || p.x > width + 4) p.vx *= -1;
+      if (p.y < -4 || p.y > height + 4) p.vy *= -1;
+
+      const dxp = pointer.x - p.x;
+      const dyp = pointer.y - p.y;
+      const pd = Math.hypot(dxp, dyp);
+      if (pd < 165) {
+        p.x -= dxp * .0014;
+        p.y -= dyp * .0014;
+      }
+
+      const pulse = .62 + Math.sin(now * .0015 + p.phase) * .26;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * (1 + pulse * .18), 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${p.hue}, 95%, 76%, ${.56 + pulse * .32})`;
+      ctx.shadowBlur = p.r > 2 ? 17 : 10;
+      ctx.shadowColor = `hsla(${p.hue}, 95%, 70%, .8)`;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
       for (let j = i + 1; j < particles.length; j++) {
-        const q = particles[j], d = Math.hypot(p.x - q.x, p.y - q.y);
-        if (d < 125) {
-          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
-          ctx.strokeStyle = `rgba(167,139,250,${(1 - d / 125) * .12})`; ctx.stroke();
+        const q = particles[j];
+        const distance = Math.hypot(p.x - q.x, p.y - q.y);
+        if (distance < 155) {
+          const shimmer = .72 + Math.sin(now * .001 + p.phase + q.phase) * .22;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
+          ctx.strokeStyle = `rgba(135,190,255,${(1 - distance / 155) * .24 * shimmer})`;
+          ctx.lineWidth = .7;
+          ctx.stroke();
         }
       }
     });
+
     requestAnimationFrame(draw);
   };
-  resize(); draw();
-}
 
+  resize();
+  requestAnimationFrame(draw);
+}
 document.querySelector("#year").textContent = new Date().getFullYear();
