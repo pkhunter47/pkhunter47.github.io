@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#090b10">
-  <meta name="description" content="Portfolio of Protik Biswas — software engineering, QA automation, applied AI research, medical imaging, multimodal learning, and UI/UX.">
-  <title>Protik Biswas — Software, QA & Applied AI</title>
+  <meta name="description" content="Portfolio of Protik Biswas — medical AI research, efficient computer vision, multimodal health systems, trustworthy VLMs, software engineering, and QA.">
+  <title>Protik Biswas — Medical AI & Applied Research</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -55,7 +55,7 @@
     <section class="hero section-shell" aria-labelledby="hero-title">
       <div class="hero__eyebrow reveal">
         <span>CS @ AIUB · Dhaka, Bangladesh</span>
-        <span>CGPA 3.94 / 4.00</span>
+        <span>CGPA 3.94 / 4.00 · Coursework completed 2026</span>
       </div>
 
       <h1 id="hero-title" class="hero__title" aria-label="I engineer dependable intelligence">
@@ -153,8 +153,19 @@
           <a class="project-card__link magnetic" href="https://github.com/pkhunter47/deeplabnet-liver-ultrasound" target="_blank" rel="noopener" aria-label="View DeepLabNet on GitHub">↗</a>
         </article>
 
-        <article class="project-card reveal tilt-card" data-category="software">
+        <article class="project-card reveal tilt-card" data-category="medical">
           <div class="project-card__num">04</div>
+          <div class="project-card__body">
+            <div class="project-card__meta"><span>Colorectal Polyp Segmentation</span><span>Accepted · INCISCOS V 2026</span></div>
+            <h3>Size-Aware<br>Boundary Guidance</h3>
+            <p>A lightweight EfficientNet-B0 segmentation model uses a shared boundary map to guide decoder features and size-aware sampling to support small polyps.</p>
+            <ul><li>0.9213 Dice</li><li>0.8731 IoU</li><li>4.804M parameters</li></ul>
+          </div>
+          <a class="project-card__link magnetic" href="https://github.com/pkhunter47/litetc-polypnet-b0" target="_blank" rel="noopener" aria-label="View colorectal polyp segmentation code on GitHub">↗</a>
+        </article>
+
+        <article class="project-card reveal tilt-card" data-category="software">
+          <div class="project-card__num">05</div>
           <div class="project-card__body">
             <div class="project-card__meta"><span>LLMs for Software Engineering</span><span>Preliminary Study</span></div>
             <h3>Budget-Aware<br>LLM Testing</h3>
@@ -165,7 +176,7 @@
         </article>
 
         <article class="project-card reveal tilt-card" data-category="nlp">
-          <div class="project-card__num">05</div>
+          <div class="project-card__num">06</div>
           <div class="project-card__body">
             <div class="project-card__meta"><span>Biomedical Data Mining</span><span>Accepted · ICCA 2026</span></div>
             <h3>Rare Disease<br>Onset</h3>
@@ -176,7 +187,7 @@
         </article>
 
         <article class="project-card reveal tilt-card" data-category="software">
-          <div class="project-card__num">06</div>
+          <div class="project-card__num">07</div>
           <div class="project-card__body">
             <div class="project-card__meta"><span>QA Automation</span><span>PHP / MySQL / Selenium</span></div>
             <h3>Hostel<br>Management QA</h3>
@@ -244,6 +255,12 @@
           <h3>AI constraints and student learning</h3>
           <p>An exploratory PLS-SEM study of frustration, tool switching, prompting skill, and learning effectiveness.</p>
           <div class="research-tile__footer"><span>320 responses</span><b>05</b></div>
+        </article>
+        <article class="research-tile reveal">
+          <span class="research-tile__label">Vision-Language Model Reliability</span>
+          <h3>Classifier-Grounded Re-prompting</h3>
+          <p>Thesis research evaluates whether calibrated image-classifier evidence can guide a second VLM response and reduce fabricated or omitted findings in endoscopy descriptions.</p>
+          <div class="research-tile__footer"><span>HyperKvasir · Kvasir-VQA · CGR</span><b>06</b></div>
         </article>
       </div>
     </section>
@@ -339,6 +356,9 @@
         <a class="publication reveal" href="https://github.com/pkhunter47/deeplabnet-liver-ultrasound" target="_blank" rel="noopener">
           <span class="publication__year">2026</span><div><small>IECBES 2026 · Accepted for presentation</small><h3>DeepLabNet: Lightweight Liver Ultrasound Segmentation via Haar Frequency Fusion and Entropy Guided Boundary Refinement</h3></div><b>Accepted ↗</b>
         </a>
+        <a class="publication reveal" href="https://github.com/pkhunter47/litetc-polypnet-b0" target="_blank" rel="noopener">
+          <span class="publication__year">2026</span><div><small>INCISCOS V 2026 · Accepted for presentation · Paper 65 · Quito, Nov 17–19</small><h3>Lightweight Boundary-Guided Colorectal Polyp Segmentation with Size-Aware Training</h3></div><b>Accepted ↗</b>
+        </a>
         <div class="publication reveal">
           <span class="publication__year">2026</span><div><small>4th International Conference on Computing Advancements · Accepted</small><h3>Predicting Rare Disease Onset Categories Using Integrated Genetic, Epidemiological, and Graph-Based Features from Orphadata</h3></div><b>Accepted</b>
         </div>
@@ -390,13 +410,13 @@
         <p class="kicker reveal">08 / About</p>
         <h2 id="about-title" class="split-lines">I like hard problems<br>that leave <em>evidence.</em></h2>
         <div class="about__copy reveal">
-          <p>I am a Computer Science undergraduate at American International University-Bangladesh, expected to graduate in 2027. My work bridges software engineering, QA automation, biomedical computer vision, multimodal learning, and responsible experimental practice.</p>
+          <p>I am a Computer Science undergraduate at American International University-Bangladesh. I completed my BSc coursework in November 2026; degree conferral is pending. My work spans medical computer vision, multimodal health AI, vision-language model reliability, and careful experimental practice.</p>
           <p>Beyond research, I have built web systems, Java and C# applications, Figma prototypes, a WordPress theme, and a microprocessor heart-rate detector. I am open to international internships, research assistantships, and junior software, QA, or AI/ML roles.</p>
         </div>
 
         <p class="kicker reveal">Education and Experience</p>
         <div class="timeline reveal">
-          <div><span>2027</span><p><strong>BSc in Computer Science</strong>American International University-Bangladesh (AIUB) · CGPA: 3.94/4.00 · Expected 2027</p></div>
+          <div><span>2026</span><p><strong>BSc in Computer Science</strong>American International University-Bangladesh (AIUB) · Coursework completed November 2026 · CGPA: 3.94/4.00 · Degree conferral pending</p></div>
           <div><span>HSC / SSC</span><p><strong>Milestone School and College</strong>Higher Secondary Certificate and Secondary School Certificate · Science · GPA: 5.00/5.00</p></div>
           <div><span>2026</span><p><strong>Applied research & publications</strong>Medical AI, multimodal learning, rare-disease data, and LLM testing</p></div>
           <div><span>Experience</span><p><strong>Software Intern · Trends Bird Limited</strong>Information architecture, responsive layouts, high-fidelity Figma, and developer handoff</p></div>
@@ -427,7 +447,7 @@
             <a href="https://github.com/pkhunter47" target="_blank" rel="noopener">GitHub ↗</a>
             <a href="https://www.linkedin.com/in/protik-biswas-83001827b/" target="_blank" rel="noopener">LinkedIn ↗</a>
             <a href="https://www.researchgate.net/profile/Protik-Biswas-4" target="_blank" rel="noopener">ResearchGate ↗</a>
-            <a href="https://orcid.org/0009-0005-3996-8312" target="_blank" rel="noopener" aria-label="ORCID profile">ORCID ↗</a>
+            <a href="https://orcid.org/0009-0004-1621-8909" target="_blank" rel="noopener" aria-label="ORCID profile">ORCID ↗</a>
           </div>
         </div>
       </div>
